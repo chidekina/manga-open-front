@@ -1,12 +1,23 @@
-import SearchBar from '../SearchBar';
-import logo from '/src/assets/manga-open-logo.png';
+import { useState } from 'react';
 import { NavLink } from "react-router-dom";
+import debounce from 'lodash.debounce';
+
+import logo from '/src/assets/manga-open-logo.png';
+
+import SearchBar from '../SearchBar';
 
 const Header = () => {
-    const handleChange = (e) => {
-        console.log(e)
-    }
 
+    const [value, setValue] = useState('');
+    const [dbValue, saveToDb] = useState(''); // normalmente, a chamada à API
+
+    const handleChange = event => {
+        const { value: nextValue } = event.target;
+        setValue(nextValue);
+        // Início do destaque
+        const debouncedSave = debounce(() => saveToDb(nextValue), 1000);
+        debouncedSave();
+    }
     return (
         <header className="flex px-12 py-10 items-center justify-between bg-(--tertiary-color)">
             <div className='flex gap-12 items-center'>
@@ -32,7 +43,7 @@ const Header = () => {
             </div>
             <SearchBar
                 placeholder="Digite o que você procura"
-                onchange={(e) => handleChange(e.target.value)}
+                onchange={handleChange}
             />
         </header>
     );
