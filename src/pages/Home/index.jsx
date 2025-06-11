@@ -3,11 +3,11 @@ import Banner from "../../components/Banner";
 
 const Home = () => {
 
-        return (
-            <>
-<Banner />
-            </>
-        );
+    return (
+        <>
+            <Banner />
+        </>
+    );
 }
 
 export default Home;
