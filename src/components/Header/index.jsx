@@ -5,6 +5,7 @@ import debounce from 'lodash.debounce';
 import logo from '/manga-open-logo.png';
 
 import SearchBar from '../SearchBar';
+import AccountLink from '../AccountLink';
 
 const Header = () => {
 
@@ -21,7 +22,7 @@ const Header = () => {
 
 
     return (
-        <header className="flex px-12 py-10 items-center justify-between bg-(--tertiary-color)">
+        <header className="flex text-white px-12 py-7 items-center justify-between bg-(--tertiary-color)">
             <div className='flex gap-12 items-center'>
                 <img
                     src={logo}
@@ -48,6 +49,7 @@ const Header = () => {
                 onChange={handleChange}
                 value={value}
             />
+            <AccountLink />
         </header>
     );
 }
