@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "name": "mangas",
+        "path": "/admin/mangas"
+    },
+    { 
+        "id": 2,
+        "name": "users",
+        "path": "/admin/users"
+    }
+]

@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom";
+import { API } from "../../services/api";
 
 
 const Account = () => {
@@ -11,11 +12,19 @@ const Account = () => {
     } = useForm()
 
 
-    const onSubmit = (data) => {
-        if (data.login === "usuario" && data.password === "senha") {
-            navigate("/");
+    const onSubmit = async (formData) => {
+        const response = await API.get('users?login=' + formData.login);
+        const { data } = response;
+        if (data.length) {
+            const user = data[0];
+            if (user.password === formData.password) {
+                localStorage.setItem("isLoggedIn", "true");
+                navigate("/admin"); // Login correto, redireciona
+            } else {
+                alert("Senha incorreta");
+            }
         } else {
-            alert("Login ou senha incorretos");
+            alert("Usuário não encontrado");
         }
     }
 
@@ -52,6 +61,7 @@ const Account = () => {
                 </label>
                 {errors.password && <span>This field is required</span>}
                 <input
+                    id="entrar"
                     type="submit"
                     className="bg-(--secondary-color) px-6 py-2 rounded-3xl"
                     value="Entrar"
